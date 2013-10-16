@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;clc;close all;
 %file which store data
-file=2;
+file=1;
 if file==1
     filename='a_processed';
 else
@@ -73,10 +73,23 @@ end
 %get frequency_result
 frequency_result=max_b_x;
 %display result which contain error
+f=1:5;
 for k=1:length(f)
-    if(~isempty(find(reshape(frequency_result(k,:,:),trialnumber,channelnumber)~=f(k), 1)))
+    Temp=reshape(frequency_result(k,:,:),trialnumber,channelnumber);
+    [xx,yy]=find(Temp~=f(k));
+    xxx=[];
+    yyy=[];
+    for xk=1:length(xx)
+        if Temp(xx(xk),yy(xk))~=0
+            xxx=[xxx,xx(xk)];
+            yyy=[yyy,yy(xk)];
+        end
+    end
+    if(~isempty(xxx))
         disp(strcat('frequency',int2str(k),'result: '));
         disp(reshape(frequency_result(k,:,:),trialnumber,channelnumber));
+        disp(strcat('frequency',int2str(k),'Error position: '));
+        disp([xxx' yyy']);
     end
 end
                 
