@@ -12,17 +12,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;clc;close all;
 %file which store data
-file=1;
+file=0;
 if file==1
     filename='a_processed';
-else
+elseif file==0
+    filename='t_processed';
+elseif file==2
     filename='b_processed';
+else
+    error('File number error');
 end
 %according to file name, get frequency
-if(filename=='a_processed')
+if(strcmp(filename,'a_processed'))
     f=[17.14 15 13.33 12 10.9];
-else
+elseif strcmp(filename,'t_processed')
+    f=[17.14 15 13.33 12 10.9];
+elseif strcmp(filename,'b_processed')
     f=[10 9.23 8.57 8 7.5];
+else
+    error('File error');
 end
 %load data
 load(filename);
