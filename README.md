@@ -27,7 +27,7 @@ Experiment files include experiment discription file and data files:
    
 ### Analysis files
 
-Analysis files include matlab running files and analysis result files:
+Analysis files include matlab running files, analysis result files and test data genrate file:
 
 + Matlab running files: 
 
@@ -40,7 +40,25 @@ Analysis files include matlab running files and analysis result files:
      After running it, a_processed.mat (for ssvep_20110824_wcm_1a.mat, ssvep_20110824_wcm_2a.mat and ssvep_20110824_wcm_3a.mat) or b_processed.mat (for ssvep_20110824_wcm_1b.mat, ssvep_20110824_wcm_2b.mat and ssvep_20110824_wcm_3b.mat) will be generated. Every file contains two large matrixes: ```ssvepdata``` and ```timedata```. For ```ssvepdata```, it is a 5\*9\*14\*3600 matrix. 5 means 5 different freqeuncies. 9 means 9 trials for one frequency. 14 means 14 channels for one trial and one frequency. 3600 means 3600 data for one trial, one frequency and one channel. For ```timedata```, it is 5\*9\*3600. The meanings of 5, 9 and 3600 are same as ```ssvepdata```.
    - emd_dot_analysis.m
    
-     Use emd method to find the flashing freqeuncy for every data segment. 
+     Use emd method to find the flashing freqeuncy for every data segment.
+   - fft_analysis.m
+   
+     Use fast Fourier transform to find the flashing frequency for every data segment
++ test data generate file
+
+  - test_data_generate.m
+
+    Use the combination of sine waveforms to genrate some testing data to test the EMD method and fft method for ideal signals. The testing data will be stored in t_processed.mat. The data arrangement is the same as a_processed.mat and b_processed.mat. There are 5 frequencies and 9 trials but only 1 channel.
+  
+    The combination of sine waveforms is shown below.
+    
+    s=A1\*sin(2\*pi\*f1\*t+phase1)+A2\*sin(2\*pi\*f2\*t+phase2)+A3\*sin(2\*pi\*f3\*t+phase3)+A4\*sin(2\*pi\*f4\*t+phase4)+A5\*sin(2\*pi\*f5\*t+phase5)
+    
+    f1, f2, f3, f4 and f5 are 17.14Hz, 15Hz, 13.33Hz, 12Hz and 10.9Hz.
+    
+    A1, A2, A3, A4 and A5 are amplitudes. Values are random from 0 to 1. But for different frequency experiment, the corresponding amplitude will be 1.1.
+    
+    phase1, phase2, phase3, phase4 and phase5 are phases. Values are random from 0 to 2*pi 
 + Analysis result files
 
    - a_processed.m

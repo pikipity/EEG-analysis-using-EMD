@@ -11,26 +11,19 @@
 %       [5 frequencies, 9 trials, 14 channels] -> frequency result from b
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;clc;close all;
-%file which store data
+%file which store data and according to file name, get frequency
 file=0;
 if file==1
     filename='a_processed';
+    f=[17.14 15 13.33 12 10.9];
 elseif file==0
     filename='t_processed';
+    f=[17.14 15 13.33 12 10.9];
 elseif file==2
     filename='b_processed';
-else
-    error('File number error');
-end
-%according to file name, get frequency
-if(strcmp(filename,'a_processed'))
-    f=[17.14 15 13.33 12 10.9];
-elseif strcmp(filename,'t_processed')
-    f=[17.14 15 13.33 12 10.9];
-elseif strcmp(filename,'b_processed')
     f=[10 9.23 8.57 8 7.5];
 else
-    error('File error');
+    error('File number error');
 end
 %load data
 load(filename);
@@ -81,7 +74,7 @@ end
 %get frequency_result
 frequency_result=max_b_x;
 %display result which contain error
-f=1:5;
+f=1:length(f);
 for k=1:length(f)
     Temp=reshape(frequency_result(k,:,:),trialnumber,channelnumber);
     [xx,yy]=find(Temp~=f(k));
