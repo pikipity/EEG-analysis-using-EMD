@@ -63,5 +63,6 @@ Analysis files include matlab running files, analysis result files and test data
 
    - a_processed.m
    - b_processed.m
+   - t_processed.m
    
-   They are results of Split_Data.m. Use them to do futher analysis.
+   They are results of Split_Data.m and test_data_generate.m. Use them to do futher analysis.
