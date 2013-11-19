@@ -24,6 +24,7 @@ waitsub=4*Fs;%waiting point number
 beginningignore=6*Fs;%At the beginning, some point need to be ignored.
 ssvepdata=zeros(5,9,14,3600);%ssvep data matrix
 timedata=zeros(5,9,3600);%ssvep data materix
+flash=zeros(5,9,3600);%flashing signal
 triallabel=[1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
                  1 2 3 4 5 1 2 3 4 5 1 2 3 4 5
                  1 2 3 4 5 1 2 3 4 5 1 2 3 4 5];%trial label matrix
@@ -47,10 +48,12 @@ for i=1:size(dataname,1)
         ssvepdata(frequencynum,trialno,:,:)=y(2:end-1,pos(k):pos(k)+samplesub-1);
         %build timedata
         timedata(frequencynum,trialno,:)=y(1,pos(k):pos(k)+samplesub-1);
+        %build flash signal
+        flash(frequencynum,trialno,:)=y(16,pos(k):pos(k)+samplesub-1);
     end
 end
 %save data
-save(strcat(dataname(1,end),'_processed'),'ssvepdata','timedata');
+save(strcat(dataname(1,end),'_processed'),'ssvepdata','timedata','flash');
 %clear all
 clear;clc;
 

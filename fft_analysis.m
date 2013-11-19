@@ -7,7 +7,7 @@ clear;clc;close all;
 %sampling frequency
 fs=600;
 %file which stores data and according to file name, get frequency
-file=0;
+file=1;
 if file==1
     filename='a_processed';
     f=[17.14 15 13.33 12 10.9];
@@ -23,6 +23,31 @@ elseif file==2
     f=[10 9.23 8.57 8 7.5];
     f_min=7;
     f_max=11;
+elseif file==3
+    filename='c_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+    f_min=6;
+    f_max=21;
+elseif file==4
+    filename='d_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+    f_min=6;
+    f_max=21;
+elseif file==5
+    filename='e_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+    f_min=6;
+    f_max=21;
+elseif file==6
+    filename='f_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+    f_min=6;
+    f_max=21;
+elseif file==7
+    filename='g_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+    f_min=6;
+    f_max=21;
 end
 %load data
 load(filename);
@@ -43,7 +68,7 @@ for frequency=1:frequencynumber
     for trial=1:trialnumber
         for channel=1:channelnumber
             %get data
-            data=reshape(ssvepdata(frequency,trial,channel,:),1,datanumber);
+            data=reshape(ssvepdata(frequency,trial,channel,1:datanumber),1,datanumber);
             if(~isempty(find(data>100, 1)))%if there is a data which is larger than 100uV, this data must be ignored.
                 frequency_result(frequency,trial,channel)=0;
             else%if data can be used
@@ -66,6 +91,7 @@ for frequency=1:frequencynumber
 end
 %display result which contain error
 f=1:length(f);
+error_number=zeros(1,length(f));
 for k=1:length(f)
     Temp=reshape(frequency_result(k,:,:),trialnumber,channelnumber);
     [xx,yy]=find(Temp~=f(k));
@@ -80,7 +106,12 @@ for k=1:length(f)
     if(~isempty(xxx))
         disp(strcat('frequency',int2str(k),'result: '));
         disp(reshape(frequency_result(k,:,:),trialnumber,channelnumber));
-        disp(strcat('frequency',int2str(k),'Error position: '));
+        disp(strcat('frequency',int2str(k),'Error position (x,y): '));
         disp([xxx' yyy']);
+        disp(strcat('frequency',int2str(k),'Error number: '));
+        disp(length(xxx));
     end
+    error_number(k)=length(xxx);
 end
+disp('Total error number:');
+disp(sum(error_number));

@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;clc;close all;
 %file which store data and according to file name, get frequency
-file=0;
+file=1;
 if file==1
     filename='a_processed';
     f=[17.14 15 13.33 12 10.9];
@@ -22,6 +22,21 @@ elseif file==0
 elseif file==2
     filename='b_processed';
     f=[10 9.23 8.57 8 7.5];
+elseif file==3
+    filename='c_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+elseif file==4
+    filename='d_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+elseif file==5
+    filename='e_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+elseif file==6
+    filename='f_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
+elseif file==7
+    filename='g_processed';
+    f=[20 15 10 8 7.5 17.14 13.33 12 8.57 6.67];
 else
     error('File number error');
 end
@@ -75,6 +90,7 @@ end
 frequency_result=max_b_x;
 %display result which contain error
 f=1:length(f);
+error_number=zeros(1,length(f));
 for k=1:length(f)
     Temp=reshape(frequency_result(k,:,:),trialnumber,channelnumber);
     [xx,yy]=find(Temp~=f(k));
@@ -91,8 +107,13 @@ for k=1:length(f)
         disp(reshape(frequency_result(k,:,:),trialnumber,channelnumber));
         disp(strcat('frequency',int2str(k),'Error position: '));
         disp([xxx' yyy']);
+        disp(strcat('frequency',int2str(k),'Error number: '));
+        disp(length(xxx));
     end
+    error_number(k)=length(xxx);
 end
+disp('Total error number:');
+disp(sum(error_number));
                 
 
 
