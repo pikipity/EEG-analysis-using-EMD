@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear;clc;close all;
 %file which store data and according to file name, get frequency
-file=7;
+file=0;
 if file==1
     filename='a_processed';
     f=[17.14 15 13.33 12 10.9];
@@ -70,8 +70,9 @@ for frequency=1:frequencynumber
                 %reshape time to one row matrix
                 t=reshape(timedata(frequency,trial,:),1,datanumber);
                 %calculate IMF
-                IMF=eemd(data,0,1);
-                IMF=IMF(:,2:end)';
+                IMF=eemd(data,0.1,10);
+                IMF=IMF';
+                IMF=IMF(2:end,:);
                 %calculate h
                 h=zeros(length(f),length(t));
                 for k=1:length(f)
@@ -128,7 +129,7 @@ disp(run_time);
 disp('=====================================================')
 for i=1:length(f)
     disp('Main frequency part in which IMF ( trial , channel ) :')
-    disp(reshape(max_b_y(i,1:trialnumber,1:channelnumber),trialnumber,channelnumber));
+    disp(reshape(max_b_y,1:trialnumber,1:channelnumber,trialnumber,channelnumber));
 end
                 
 

@@ -13,10 +13,8 @@
 %       residual (over all trend).
 %
 % NOTE:
-%       (1) It should be noted that when Nstd is set to zero and NE is set to 1, the
-%            program degenerates to a EMD program.
-%       (2) format of output (When it is used, it may be need to change row and column):
-%               [original data, IMF1, IMF2, ...]
+%       It should be noted that when Nstd is set to zero and NE is set to 1, the
+%       program degenerates to a EMD program.
 %
 % References can be found in the "Reference" section.
 %
@@ -28,10 +26,9 @@
 function allmode=eemd(Y,Nstd,NE)
 xsize=length(Y);
 dd=1:1:xsize;
-%normalize original data
 Ystd=std(Y);
 Y=Y/Ystd;
-%initial result
+
 TNM=fix(log2(xsize))-1;
 TNM2=TNM+2;
 for kk=1:1:TNM2, 
@@ -39,14 +36,13 @@ for kk=1:1:TNM2,
         allmode(ii,kk)=0.0;
     end
 end
-%NE -- maximum loop number
+
 for iii=1:1:NE,
-    %generate white noise -- X1
     for i=1:xsize,
         temp=randn(1,1)*Nstd;
         X1(i)=Y(i)+temp;
     end
-    %EMD -- IMF stored in mode
+
     for jj=1:1:xsize,
         mode(jj,1) = Y(jj);
     end
@@ -58,6 +54,7 @@ for iii=1:1:NE,
     while nmode <= TNM,
         xstart = xend;
         iter = 1;
+   
         while iter<=10,
             [spmax, spmin, flag]=extrema(xstart);
             upper= spline(spmax(:,1),spmax(:,2),dd);
@@ -78,13 +75,12 @@ for iii=1:1:NE,
     for jj=1:1:xsize,
         mode(jj,nmode+1)=xend(jj);
     end
-   %sum all IMF generated now
+   
     allmode=allmode+mode;
     
 end
-%average value
+
 allmode=allmode/NE;
-%denormalize result
 allmode=allmode*Ystd;
 
 

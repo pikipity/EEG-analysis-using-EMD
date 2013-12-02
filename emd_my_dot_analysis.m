@@ -70,7 +70,7 @@ for frequency=1:frequencynumber
                 %reshape time to one row matrix
                 t=reshape(timedata(frequency,trial,:),1,datanumber);
                 %calculate IMF
-                IMF=eemd(data,0,1);
+                IMF=eemd_my(data,0,1);
                 IMF=IMF(:,2:end)';
                 %calculate h
                 h=zeros(length(f),length(t));

@@ -7,15 +7,25 @@ clear;clc;close all;
 %sampling frequency
 fs=600;
 %file which stores data and according to file name, get frequency
-file=1;
+file=-2;
 if file==1
     filename='a_processed';
     f=[17.14 15 13.33 12 10.9];
     f_min=10;
     f_max=18;
 elseif file==0
-    filename='t_processed';
-    f=[17.14 15 13.33 12 10.9];
+    filename='normal_data_processed';
+    f=[17.14];
+    f_min=10;
+    f_max=18;
+elseif file==-1
+    filename='normal_data_diff_fix_phase_processed';
+    f=[17.14];
+    f_min=10;
+    f_max=18;
+elseif file==-2
+    filename='normal_data_diff_random_phase_processed';
+    f=[17.14];
     f_min=10;
     f_max=18;
 elseif file==2
@@ -49,6 +59,7 @@ elseif file==7
     f_min=6;
     f_max=21;
 end
+tic
 %load data
 load(filename);
 %get variables
@@ -89,6 +100,7 @@ for frequency=1:frequencynumber
         end
     end
 end
+run_time=toc;
 %display result which contain error
 f=1:length(f);
 error_number=zeros(1,length(f));
@@ -115,3 +127,5 @@ for k=1:length(f)
 end
 disp('Total error number:');
 disp(sum(error_number));
+disp('Total run time:');
+disp(run_time);
